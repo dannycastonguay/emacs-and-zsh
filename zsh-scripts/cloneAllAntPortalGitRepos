@@ -1,0 +1,7 @@
+#!/bin/zsh
+
+REPOS=$(ssh antportal.com "ls -d /var/lib/git/*.git")
+for rep in ${=REPOS} 
+do
+git clone ssh://antportal.com${rep}
+done

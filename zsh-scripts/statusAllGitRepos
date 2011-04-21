@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+for rep in */.git(:h)
+do
+	pushd $rep
+	echo $rep
+	git status
+	popd
+done
