@@ -51,6 +51,11 @@
 (require 'sass-mode)
 (add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))
 
+;; for coffee script
+(require 'coffee-mode)
+(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
+(add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
+
 ;; for saving current editing status including the window splitting
 (autoload 'save-current-configuration "revive" "Save status" t)
 (autoload 'resume "revive" "Resume Emacs" t)
