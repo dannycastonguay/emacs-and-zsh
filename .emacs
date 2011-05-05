@@ -32,6 +32,10 @@
 
 ;; (add-hook 'post-command-hook 'djcb-set-cursor-according-to-mode)
 
+;; Scroll down with the cursor,move down the buffer one 
+;; line at a time, instead of in larger amounts.
+(setq scroll-step 4)
+
 ;; Completion prompts
 (require 'ido)
 (ido-mode)
