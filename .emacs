@@ -41,19 +41,24 @@
 (ido-mode)
 
 ;; Enable highlight line where the cursor is
-(global-hl-line-mode)
+(global-hl-line-mode 1)
+
+;; load all modes in ~/.elisp
+(add-to-list 'load-path "~/.elisp/")
 
 ;; https://github.com/brianc/jade-mode/
-(add-to-list 'load-path "~/.elisp/jade-mode")
 (require 'sws-mode)
 (require 'jade-mode)    
-(add-to-list 'auto-mode-alist '("\\.styl$" . sws-mode))
-(add-to-list 'auto-mode-alist '("\\.jade$" . sws-mode))
+(add-to-list 'auto-mode-alist '("\\.styl$" . jade-mode))
+(add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
 
 ;; for sass
-(add-to-list 'load-path "~/.elisp/")
 (require 'sass-mode)
 (add-to-list 'auto-mode-alist '("\\.scss$" . sass-mode))
+
+;; for markdown
+(require 'markdown-mode)
+(add-to-list 'auto-mode-alist '("\\.mdwn$" . markdown-mode))
 
 ;; for coffee script
 (require 'coffee-mode)
@@ -74,9 +79,12 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+ '(global-whitespace-mode t)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
- '(tab-width 4))
+ '(tab-width 4)
+ '(whitespace-global-modes (quote (jade-mode)))
+ '(whitespace-style (quote (face tabs spaces trailing space-before-tab newline indentation empty space-after-tab space-mark tab-mark newline-mark))))
 
 ;; Automatically added by emacs
 (custom-set-faces
@@ -85,3 +93,4 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  )
+(put 'narrow-to-region 'disabled nil)
