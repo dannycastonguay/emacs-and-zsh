@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+echo '###############################'
+echo 'Copying all emacs files to home'
+echo '###############################'
+cp -vr .e* ~
+
+echo '#################################################'
+echo 'Copying all antportal zsh-scripts to ~/antportal/'
+echo '#################################################'
+mkdir -p ~/antportal/
+cp zsh-scripts/* ~/antportal/
