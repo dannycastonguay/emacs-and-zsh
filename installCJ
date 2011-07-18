@@ -5,8 +5,13 @@ echo 'Copying all emacs files to home'
 echo '###############################'
 cp -vr .e* ~
 
+echo '################################'
+echo 'Copying zsh config files to home'
+echo '################################'
+cp -v .zsh* ~
+
 echo '#################################################'
 echo 'Copying all antportal zsh-scripts to ~/antportal/'
 echo '#################################################'
 mkdir -p ~/antportal/
-cp zsh-scripts/* ~/antportal/
+cp -v zsh-scripts/* ~/antportal/
