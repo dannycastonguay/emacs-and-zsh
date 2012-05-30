@@ -11,7 +11,7 @@ A collection my config files for emacs and zsh. They seem to work fine under Mac
 | .zshrc        | zsh config with pretty colored prompt                         |
 | zsh-scripts/* | three useful scripts for batch cloning, pulling and statusing |
 
-Note: the zsh-scripts are specific to antportal, but you can certainly figure out how to adapt to your needs.
+Note: the zsh-scripts are specific to antportal, but you can certainly figure out how to adapt to your needs. If you prefer to clone manually, use this command: git clone ssh://user@host:port/path/to/repo.git
 
 ** Installation
 
