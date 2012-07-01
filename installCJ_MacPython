@@ -1,0 +1,94 @@
+
+#!/bin/zsh
+
+echo '###############################'
+echo 'Copying all emacs files to home'
+echo '###############################'
+cp -vr .e* ~
+
+echo '################################'
+echo 'Copying zsh config files to home'
+echo '################################'
+cp -v .zsh* ~
+
+echo '#################################################'
+echo 'Copying all antportal zsh-scripts to ~/antportal/'
+echo '#################################################'
+mkdir -p ~/antportal/
+cp -v zsh-scripts/* ~/antportal/
+
+
+echo 'The follow is almost completely stolen from http://www.thisisthegreenroom.com/2011/installing-python-numpy-scipy-matplotlib-and-ipython-on-lion/#python'
+
+
+echo '###################'
+echo 'installing homebrew'
+echo '###################'
+/usr/bin/ruby -e "$(/usr/bin/curl -fsSL https://raw.github.com/mxcl/homebrew/master/Library/Contributions/install_homebrew.rb)"
+
+echo '########################################################'
+echo 'installing readline, sqlite, gdbm, pkg-config and python'
+echo '########################################################'
+sudo brew install readline sqlite gdbm pkg-config
+sudo brew install python --framework --universal
+
+echo 'This will install a version of disutils, but you must update your path in order to run it properly. Add the following to your .bash_profile (you may combine it with the previous .bash_profile edit, if you choose):'
+export PATH=/usr/local/share/python:$PATH
+
+echo 'Once again, make sure you reload Terminal to update your path variable. Finally, you need to change Lions symlink to point at your new Python install. Run the following three lines in sequence:'
+
+sudo cd /System/Library/Frameworks/Python.framework/Versions
+sudo rm Current
+sudo ln -s /usr/local/Cellar/python/2.7.2/Frameworks/Python.framework/Versions/Current
+
+echo 'To verify that your installation went as planned, type which python at the command line. You should see /usr/local/bin/python in response. Furthermore, if you type python, you should see Python 2.7.2 launch (type quit() to return to Terminal).'
+echo 'You already have easy_install available through Homebrews version of disutils, but pip, in my opinion, is a much better package manager -- not least because it allows simple uninstalls. To get pip, simply execute:'
+
+sudo easy_install pip
+
+echo '#####################'
+echo 'installing virtual env'
+echo '#####################'
+
+echo 'Virtualenv is a tool that allows you to create isolated Python environments, each with its own set of packages and dependencies. This is useful for testing or managing package requirements (for example, if you build an application that is dependent on a certain version of a third-party package but another application requires a more recent version, you may break the first application by upgrading). This is not a required step, and all the commands below should work whether or not you are using virtualenv, so Im listing it here for convenience only. The only difference will be that directories (such as that returned by which pip) will point to the virtualenv rather than /usr/local.'
+echo 'First, install virtualenv and virtualenvwrapper (a tool which makes working with virtualenv somewhat easier):'
+
+sudo pip install virtualenv
+sudo pip install virtualenvwrapper
+
+echo 'This will create a hidden virtualenv directory at ~/.virtualenv. Now you can make your first virtual environment:'
+source /usr/local/share/python/virtualenvwrapper.sh
+
+mkvirtualenv pyEnv
+echo 'Your new virtualenv test1 comes with a complete install of Python 2.7.2 and its own version of Pip. It is activated by default, so running any pip command will only impact this environment. Note that if you deactivate the virtualenv, you will lose access to any packages installed in it. You can switch between virtualenvs with the workon command. In order to delete your test virtualenv, run rmvirtualenv test1. Also, to specify a different version of Python, just use mkvirtualenv -p python3.2 test1 (replacing python3.2 with the shell name of your preferred version).'
+
+echo '#####################'
+echo 'NumPy, SciPy
+echo '#####################'
+
+echo 'If pip installed properly (executing which pip should return /usr/local/share/python/pip), then you can install NumPy simply with:'
+
+pip install numpy
+
+echo 'SciPy requires a Fortran compiler, which Lion lacks. To acquire one, use Homebrew:'
+
+brew install gfortran
+
+echo 'As of this writing, the stable version of SciPy (0.9) will not compile properly under Lion. If you try installing SciPy with pip, it will fail. Fortunately, a fix has already been committed to the dev version (0.10) and we can instruct pip to use that version:'
+echo 'pip install -e git+https://github.com/scipy/scipy#egg=scipy-dev'
+
+pip install SciPy
+
+pip install matplotlib
+
+pip install ipython
+
+
+brew install pyqt
+brew install zmq
+pip install pyzmq
+pip install pygments
+
+echo 'And thats it -- you should now be able to launch the qtconsole by executing ipython qtconsole. If you want to see the matplotlib output inline (and why wouldnt you?), then execute:'
+
+ipython qtconsole --pylab=inline
